@@ -4,12 +4,15 @@ import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import pl.umk.allegroworkshop.restIntroduction.api.v1.model.request.AddedBookDTO;
+import pl.umk.allegroworkshop.restIntroduction.api.v1.model.request.BookToBorrowDTO;
+import pl.umk.allegroworkshop.restIntroduction.api.v1.model.response.AddedBookDTO;
 import pl.umk.allegroworkshop.restIntroduction.api.v1.model.request.BookToAddDTO;
 import pl.umk.allegroworkshop.restIntroduction.api.v1.model.request.BookToRemoveDTO;
-import pl.umk.allegroworkshop.restIntroduction.api.v1.model.request.RemovedBookDTO;
+import pl.umk.allegroworkshop.restIntroduction.api.v1.model.response.RemovedBookDTO;
 import pl.umk.allegroworkshop.restIntroduction.api.v1.model.response.BooksResponse;
 import pl.umk.allegroworkshop.restIntroduction.api.v1.model.response.ReadersResponse;
+
+import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -91,6 +94,7 @@ class RestIntroductionApplicationTests extends BaseTest {
 		ReadersResponse readers = super.mapFromJson(content, ReadersResponse.class);
 		assertEquals(0, readers.getReaders().size());
 	}
+
 	@Test
 	void addBook() throws Exception {
 		String uri = "/addBook";
@@ -109,6 +113,7 @@ class RestIntroductionApplicationTests extends BaseTest {
 		assertEquals("Boleslaw", addedBook.getAuthorFirstName());
 		assertEquals("Prus", addedBook.getAuthorLastName());
 	}
+
 	@Test
 	void removeBook() throws Exception {
 		String uri = "/removeBook";
@@ -136,4 +141,22 @@ class RestIntroductionApplicationTests extends BaseTest {
 		assertEquals(0, books.getBooks().size());
 	}
 
+	@Test
+	void borrowBook() throws Exception {
+		String uri = "/borrowBook";
+		BookToBorrowDTO bookToBorrow = new BookToBorrowDTO(160, 3);
+		String inputJson = super.mapToJson(bookToBorrow);
+
+		MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
+				.contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON_VALUE).content(inputJson)).andReturn();
+
+		int status = mvcResult.getResponse().getStatus();
+		assertEquals(200, status);
+		String content = mvcResult.getResponse().getContentAsString();
+		BooksResponse borrowedBook = super.mapFromJson(content, BooksResponse.class);
+		assertEquals(160, borrowedBook.getBooks().get(0).getId());
+		assertEquals(false, borrowedBook.getBooks().get(0).getInStock());
+		assertEquals(3, borrowedBook.getBooks().get(0).getReaderId());
+	}
 }

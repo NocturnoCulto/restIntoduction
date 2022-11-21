@@ -17,9 +17,9 @@ public interface LibraryRepository {
 
     Integer removeBookFromLibrary(Integer id);
 
-    void borrowBook(Integer bookId, Integer readerId);
+    Book borrowBook(Integer bookId, Integer readerId);
 
-    void returnBook(Integer bookId);
+    Book returnBook(Integer bookId);
 
     List<Reader> getAllReaders();
 

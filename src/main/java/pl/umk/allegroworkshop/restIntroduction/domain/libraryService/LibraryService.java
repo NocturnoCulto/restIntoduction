@@ -39,4 +39,12 @@ public class LibraryService {
     public Integer removeBook(Integer idToRemove) {
         return libraryRepository.removeBookFromLibrary(idToRemove);
     }
+
+    public Book borrowBook(Integer bookToBorrow, Integer readerId) {
+        return libraryRepository.borrowBook(bookToBorrow, readerId);
+    }
+
+    public Book returnBook(Integer bookToReturnId) {
+        return libraryRepository.returnBook(bookToReturnId);
+    }
 }
