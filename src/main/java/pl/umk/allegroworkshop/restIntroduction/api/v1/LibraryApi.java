@@ -1,5 +1,6 @@
 package pl.umk.allegroworkshop.restIntroduction.api.v1;
 
+import org.springframework.http.CacheControl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.umk.allegroworkshop.restIntroduction.api.v1.model.request.BookToAddDTO;
@@ -30,7 +31,7 @@ public class LibraryApi {
                 .body(libraryProvider.getAllBooks());
     }
 
-    @GetMapping(value = "/getBooks/{id}", produces = APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/getBook/{id}", produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<BooksResponse> getBooksById(@PathVariable Integer id) {
         return ResponseEntity
                 .status(200)

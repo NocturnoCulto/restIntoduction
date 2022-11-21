@@ -34,7 +34,7 @@ class RestIntroductionApplicationTests extends BaseTest {
 
 	@Test
 	void getOneBookEndpoint() throws Exception {
-		String uri = "/getBooks/125";
+		String uri = "/getBook/125";
 		MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
 				.accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
 
@@ -46,7 +46,7 @@ class RestIntroductionApplicationTests extends BaseTest {
 	}
 	@Test
 	void getEmptyBooksList() throws Exception {
-		String uri = "/getBooks/1928";
+		String uri = "/getBook/1928";
 		MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
 				.accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
 
@@ -130,7 +130,7 @@ class RestIntroductionApplicationTests extends BaseTest {
 		RemovedBookDTO removedBook = super.mapFromJson(content, RemovedBookDTO.class);
 		assertEquals(150, removedBook.getRemovedBookId());
 
-		String uriForTest = "/getBooks/150";
+		String uriForTest = "/getBook/150";
 		MvcResult mvcResultForTest = mvc.perform(MockMvcRequestBuilders.get(uriForTest)
 				.accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
 
