@@ -72,7 +72,7 @@ class RestIntroductionApplicationTests extends BaseTest {
 
 	@Test
 	void getOneReaderEndpoint() throws Exception {
-		String uri = "/getReaders/3";
+		String uri = "/getReader?id=3";
 		MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
 				.accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
 
@@ -84,7 +84,7 @@ class RestIntroductionApplicationTests extends BaseTest {
 	}
 	@Test
 	void getEmptyReaderList() throws Exception {
-		String uri = "/getReaders/8238";
+		String uri = "/getReader?id=8238";
 		MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
 				.accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
 
