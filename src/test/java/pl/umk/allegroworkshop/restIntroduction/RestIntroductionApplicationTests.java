@@ -13,7 +13,7 @@ class RestIntroductionApplicationTests extends BaseTest {
 
 	@Test
 	void endpointTest() throws Exception {
-		String uri = "/";
+		String uri = "/getBooks";
 		MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
 				.accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
 

@@ -1,4 +1,4 @@
-package pl.umk.allegroworkshop.restIntroduction.domain.model;
+package pl.umk.allegroworkshop.restIntroduction.domain.model.books;
 
 public class Author {
     private final String name;

@@ -1,17 +1,19 @@
 package pl.umk.allegroworkshop.restIntroduction.repository;
 
 import org.springframework.stereotype.Repository;
-import pl.umk.allegroworkshop.restIntroduction.domain.model.Author;
-import pl.umk.allegroworkshop.restIntroduction.domain.model.Book;
+import pl.umk.allegroworkshop.restIntroduction.domain.model.books.Author;
+import pl.umk.allegroworkshop.restIntroduction.domain.model.books.Book;
+import pl.umk.allegroworkshop.restIntroduction.domain.model.readers.Reader;
 
 import javax.annotation.PostConstruct;
 import java.util.*;
 import java.util.stream.Collectors;
 
 @Repository
-public class InMemoryBooksRepository implements BooksRepository {
+public class InMemoryLibraryRepository implements LibraryRepository {
 
     private final Map<Integer, Book> library = new HashMap<>();
+    private final Map<Integer, Reader> readers = new HashMap<>();
 
     @Override
     public List<Book> getAllBooks() {
@@ -42,13 +44,23 @@ public class InMemoryBooksRepository implements BooksRepository {
     }
 
     @Override
-    public void borrowBook(Integer id) {
+    public void borrowBook(Integer bookId, Integer readerId) {
 
     }
 
     @Override
     public void returnBook(Integer id) {
 
+    }
+
+    @Override
+    public List<Reader> getAllReaders() {
+        return readers.values().stream().sorted().toList();
+    }
+
+    @Override
+    public Reader getReaderById(Integer id) {
+        return readers.get(id);
     }
 
     @PostConstruct
@@ -62,6 +74,12 @@ public class InMemoryBooksRepository implements BooksRepository {
         library.put(150 ,new Book(150, "Chrzest ognia", new Author("Andrzej", "Sapkowski")));
         library.put(155 ,new Book(155, "Wieża Jaskółki", new Author("Andrzej", "Sapkowski")));
         library.put(160 ,new Book(160, "Pani Jeziora", new Author("Andrzej", "Sapkowski")));
+
+        readers.put(1, new Reader(1, "Stanisław", "Anioł", Collections.emptyList()));
+        readers.put(2, new Reader(2, "Ewa", "Majewska", Collections.emptyList()));
+        readers.put(3, new Reader(3, "Bożena", "Lewicka", Collections.emptyList()));
+        readers.put(4, new Reader(4, "Zygmunt", "Kotek", Collections.emptyList()));
+        readers.put(5, new Reader(5, "Jan", "Winnicki", Collections.emptyList()));
     }
 
 }
