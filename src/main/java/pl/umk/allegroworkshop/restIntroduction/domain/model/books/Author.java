@@ -1,16 +1,16 @@
 package pl.umk.allegroworkshop.restIntroduction.domain.model.books;
 
 public class Author {
-    private final String name;
+    private final String firstName;
     private final String lastName;
 
-    public Author(String name, String lastName) {
-        this.name = name;
+    public Author(String firstName, String lastName) {
+        this.firstName = firstName;
         this.lastName = lastName;
     }
 
-    public String getName() {
-        return name;
+    public String getFirstName() {
+        return firstName;
     }
 
     public String getLastName() {

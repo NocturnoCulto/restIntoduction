@@ -9,8 +9,9 @@ import pl.umk.allegroworkshop.restIntroduction.domain.libraryService.LibraryServ
 import pl.umk.allegroworkshop.restIntroduction.domain.model.books.Book;
 import pl.umk.allegroworkshop.restIntroduction.domain.model.readers.Reader;
 
-import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Stream;
 
 @Component
 public class ResponseProvider {
@@ -25,7 +26,7 @@ public class ResponseProvider {
     }
 
     public BooksResponse getBookById(Integer id) {
-        return new BooksResponse(Collections.singletonList(mapBookToBookDTO(libraryService.getBookById(id))));
+        return new BooksResponse(Stream.of(mapBookToBookDTO(libraryService.getBookById(id))).filter(Objects::nonNull).toList());
     }
 
     public ReadersResponse getAllReaders() {
@@ -33,8 +34,9 @@ public class ResponseProvider {
     }
 
     public ReadersResponse getReaderById(Integer id) {
-        return new ReadersResponse(Collections.singletonList(mapReaderToReaderDTO(libraryService.getReaderById(id))));
+        return new ReadersResponse(Stream.of(mapReaderToReaderDTO(libraryService.getReaderById(id))).filter(Objects::nonNull).toList());
     }
+
     private BooksResponse mapBooksToResponse(List<Book> books) {
         return new BooksResponse(books.stream().map(this::mapBookToBookDTO).toList());
     }
@@ -44,11 +46,13 @@ public class ResponseProvider {
     }
 
     private ReaderDTO mapReaderToReaderDTO(Reader reader) {
-        return new ReaderDTO(reader.getId(), reader.getName(), reader.getLastName(), reader.getBooksList().stream().map(this::mapBookToBookDTO).toList());
+        if (reader == null) return null;
+        return new ReaderDTO(reader.getId(), reader.getFirstName(), reader.getLastName(), reader.getBookIdList());
     }
 
     private BookDTO mapBookToBookDTO(Book book) {
-        return new BookDTO(book.getId(), book.getTitle(), book.getAuthor().getName(), book.getAuthor().getLastName(), book.getInStock());
+        if (book == null) return null;
+        return new BookDTO(book.getId(), book.getTitle(), book.getAuthor().getFirstName(), book.getAuthor().getLastName(), book.getInStock(), book.getReaderId());
     }
 
 }

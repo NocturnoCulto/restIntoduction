@@ -1,27 +1,33 @@
 package pl.umk.allegroworkshop.restIntroduction.api.v1.model.response;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class BookDTO {
 
     private final Integer id;
     private final String title;
-    private final String authorName;
+    private final String authorFirstName;
     private final String authorLastName;
     private final Boolean inStock;
+
+    private final Integer readerId;
 
     @JsonCreator
     public BookDTO(@JsonProperty("id") Integer id,
                    @JsonProperty("title") String title,
-                   @JsonProperty("authorName") String authorName,
+                   @JsonProperty("authorFirstName") String authorFirstName,
                    @JsonProperty("authorLastName") String authorLastName,
-                   @JsonProperty("inStock") Boolean inStock) {
+                   @JsonProperty("inStock") Boolean inStock,
+                   @JsonProperty("readerId") Integer readerId) {
         this.id = id;
         this.title = title;
-        this.authorName = authorName;
+        this.authorFirstName = authorFirstName;
         this.authorLastName = authorLastName;
         this.inStock = inStock;
+        this.readerId = readerId;
     }
 
     public Integer getId() {
@@ -32,8 +38,8 @@ public class BookDTO {
         return title;
     }
 
-    public String getAuthorName() {
-        return authorName;
+    public String getAuthorFirstName() {
+        return authorFirstName;
     }
 
     public String getAuthorLastName() {
@@ -44,4 +50,7 @@ public class BookDTO {
         return inStock;
     }
 
+    public Integer getReaderId() {
+        return readerId;
+    }
 }
