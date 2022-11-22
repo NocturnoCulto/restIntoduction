@@ -5,17 +5,14 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import pl.umk.allegroworkshop.restIntroduction.api.v1.model.request.BookToBorrowDTO;
-import pl.umk.allegroworkshop.restIntroduction.api.v1.model.response.AddedBookDTO;
+import pl.umk.allegroworkshop.restIntroduction.api.v1.model.request.BookToReturnDTO;
+import pl.umk.allegroworkshop.restIntroduction.api.v1.model.response.*;
 import pl.umk.allegroworkshop.restIntroduction.api.v1.model.request.BookToAddDTO;
 import pl.umk.allegroworkshop.restIntroduction.api.v1.model.request.BookToRemoveDTO;
-import pl.umk.allegroworkshop.restIntroduction.api.v1.model.response.RemovedBookDTO;
-import pl.umk.allegroworkshop.restIntroduction.api.v1.model.response.BooksResponse;
-import pl.umk.allegroworkshop.restIntroduction.api.v1.model.response.ReadersResponse;
 
 import java.util.Arrays;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 class RestIntroductionApplicationTests extends BaseTest {
 
@@ -158,5 +155,34 @@ class RestIntroductionApplicationTests extends BaseTest {
 		assertEquals(160, borrowedBook.getBooks().get(0).getId());
 		assertEquals(false, borrowedBook.getBooks().get(0).getInStock());
 		assertEquals(3, borrowedBook.getBooks().get(0).getReaderId());
+	}
+
+	@Test
+	void returnBook() throws Exception {
+		String uri = "/returnBook";
+		BookToReturnDTO bookToReturn = new BookToReturnDTO(135);
+		String inputJson = super.mapToJson(bookToReturn);
+
+		MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
+				.contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON_VALUE).content(inputJson)).andReturn();
+
+		int status = mvcResult.getResponse().getStatus();
+		assertEquals(200, status);
+		String content = mvcResult.getResponse().getContentAsString();
+		BooksResponse returnedBook = super.mapFromJson(content, BooksResponse.class);
+		assertEquals(135, returnedBook.getBooks().get(0).getId());
+		assertEquals(true, returnedBook.getBooks().get(0).getInStock());
+		assertNull(returnedBook.getBooks().get(0).getReaderId());
+
+		String uriForReader = "/getReader?id=2";
+		MvcResult mvcResultForTest = mvc.perform(MockMvcRequestBuilders.get(uriForReader)
+				.accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
+
+		int statusForTest = mvcResultForTest.getResponse().getStatus();
+		assertEquals(200, statusForTest);
+		String reader = mvcResultForTest.getResponse().getContentAsString();
+		ReadersResponse readers = super.mapFromJson(reader, ReadersResponse.class);
+		assertEquals(0, readers.getReaders().get(0).getBookIdList().size());
 	}
 }
