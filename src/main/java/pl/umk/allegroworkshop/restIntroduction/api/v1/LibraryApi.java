@@ -23,51 +23,44 @@ public class LibraryApi {
         this.libraryProvider = libraryProvider;
     }
 
-    @GetMapping(value = "/getBooks", produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<BooksResponse> getAllBooks() {
         return ResponseEntity
                 .status(200)
-                .body(libraryProvider.getAllBooks());
+                .body(null);
     }
 
-    @GetMapping(value = "/getBook/{id}", produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<BooksResponse> getBooksById(@PathVariable Integer id) {
+    public ResponseEntity<BooksResponse> getBooksById() {
         return ResponseEntity
                 .status(200)
-                .body(libraryProvider.getBookById(id));
+                .body(null);
     }
 
-    @GetMapping(value = "/getReaders", produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<ReadersResponse> getAllReaders() {
         return ResponseEntity
                 .status(200)
-                .body(libraryProvider.getAllReaders());
+                .body(null);
     }
 
-    @GetMapping(value = "/getReader", produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<ReadersResponse> getReaderById(@RequestParam(value = "id") Integer id) {
+    public ResponseEntity<ReadersResponse> getReaderById() {
         return ResponseEntity
                 .status(200)
-                .body(libraryProvider.getReaderById(id));
+                .body(null);
     }
 
-    @PutMapping(value = "/addBook", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<AddedBookDTO> addNewBookToLibrary(@RequestBody BookToAddDTO bookToAddDTO) {
-        return ResponseEntity.status(201).body(libraryProvider.addNewBook(bookToAddDTO));
+    public ResponseEntity<AddedBookDTO> addNewBookToLibrary() {
+        return ResponseEntity.status(200).body(null);
     }
 
-    @DeleteMapping(value = "/removeBook", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<RemovedBookDTO> removeBookFromLibrary(@RequestBody BookToRemoveDTO bookToRemoveDTO) {
+    public ResponseEntity<RemovedBookDTO> removeBookFromLibrary() {
         return ResponseEntity
                 .status(200)
-                .body(libraryProvider.removeBook(bookToRemoveDTO));
+                .body(null);
     }
 
-    @PostMapping(value = "/borrowBook", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<BooksResponse> borrowBook(@RequestBody BookToBorrowDTO bookToBorrow) {
+    public ResponseEntity<BooksResponse> borrowBook() {
         return ResponseEntity
                 .status(200)
-                .body(libraryProvider.borrowBook(bookToBorrow));
+                .body(null);
     }
 
     @PostMapping(value = "/returnBook", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)

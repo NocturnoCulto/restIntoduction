@@ -19,6 +19,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class RestIntroductionApplicationTests extends BaseTest {
 
+	// Create get endpoint /getBooks which will return all books,
+	// endpoint should return application json content type
+	// Tip: no parameters required
+	// Tip: check LibraryProvider component and its methods
 	@Test
 	void getAllBooksEndpoint() throws Exception {
 		String uri = "/getBooks";
@@ -32,6 +36,9 @@ class RestIntroductionApplicationTests extends BaseTest {
 		assertTrue(books.getBooks().size() > 0);
 	}
 
+	// Create get endpoint /getBook which will return one book by id passed as pathVariable,
+	// endpoint should return application json content type
+	// Tip: check LibraryProvider component and its methods
 	@Test
 	void getOneBookEndpoint() throws Exception {
 		String uri = "/getBook/125";
@@ -44,6 +51,10 @@ class RestIntroductionApplicationTests extends BaseTest {
 		BooksResponse books = super.mapFromJson(content, BooksResponse.class);
 		assertEquals(1, books.getBooks().size());
 	}
+
+	// Correct the method in the LibraryProvider class so that endpoint /getBook returns an empty list
+	// instead of a null list when book id is not exist,
+	// Tip: check LibraryProvider component and its methods
 	@Test
 	void getEmptyBooksList() throws Exception {
 		String uri = "/getBook/1928";
@@ -56,6 +67,9 @@ class RestIntroductionApplicationTests extends BaseTest {
 		BooksResponse books = super.mapFromJson(content, BooksResponse.class);
 		assertEquals(0, books.getBooks().size());
 	}
+
+	//The next three tasks are analogous but refer to the readers, except for task 2
+	// create endpint /getReaders
 
 	@Test
 	void getAllReadersEndpoint() throws Exception {
@@ -70,6 +84,9 @@ class RestIntroductionApplicationTests extends BaseTest {
 		assertTrue(readers.getReaders().size() > 0);
 	}
 
+	// endpoint getReader should accept query parameters as request params
+	// create endpoint /getReader
+
 	@Test
 	void getOneReaderEndpoint() throws Exception {
 		String uri = "/getReader?id=3";
@@ -82,6 +99,7 @@ class RestIntroductionApplicationTests extends BaseTest {
 		ReadersResponse readers = super.mapFromJson(content, ReadersResponse.class);
 		assertEquals(1, readers.getReaders().size());
 	}
+
 	@Test
 	void getEmptyReaderList() throws Exception {
 		String uri = "/getReader?id=8238";
@@ -95,6 +113,8 @@ class RestIntroductionApplicationTests extends BaseTest {
 		assertEquals(0, readers.getReaders().size());
 	}
 
+	// create put endpoint /addBook which in the body of the query expects the json structure described in the BookToAddDTO class
+	// After adding the book, the api should return http created
 	@Test
 	void addBook() throws Exception {
 		String uri = "/addBook";
@@ -114,6 +134,7 @@ class RestIntroductionApplicationTests extends BaseTest {
 		assertEquals("Prus", addedBook.getAuthorLastName());
 	}
 
+	// create delete endpoint /removeBook which in the body of the query expects the json structure described in the BookToRemoveDTO class
 	@Test
 	void removeBook() throws Exception {
 		String uri = "/removeBook";
@@ -141,6 +162,7 @@ class RestIntroductionApplicationTests extends BaseTest {
 		assertEquals(0, books.getBooks().size());
 	}
 
+	// create post endpoint /borrowBook which in the body of the query expects the json structure described in the BookToBorrowDTO class
 	@Test
 	void borrowBook() throws Exception {
 		String uri = "/borrowBook";
