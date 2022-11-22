@@ -179,6 +179,7 @@ class RestIntroductionApplicationTests extends BaseTest {
 		assertEquals(3, borrowedBook.getBooks().get(0).getReaderId());
 	}
 
+	// create post endpoint /returnBook which in the body of the query expects the json structure described in the BookToReturnDTO class
 	@Test
 	void returnBook() throws Exception {
 		String uri = "/returnBook";

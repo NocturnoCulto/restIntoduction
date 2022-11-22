@@ -63,10 +63,9 @@ public class LibraryApi {
                 .body(null);
     }
 
-    @PostMapping(value = "/returnBook", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<BooksResponse> returnBook(@RequestBody BookToReturnDTO bookToReturn) {
+    public ResponseEntity<BooksResponse> returnBook() {
         return ResponseEntity
                 .status(200)
-                .body(libraryProvider.returnBook(bookToReturn));
+                .body(null);
     }
 }
