@@ -33,7 +33,7 @@ public class LibraryProvider {
     }
 
     public BooksResponse getBookById(Integer id) {
-        return new BooksResponse(Stream.of(mapBookToBookDTO(libraryService.getBookById(id))).toList());
+        return new BooksResponse(Stream.of(mapBookToBookDTO(libraryService.getBookById(id))).filter(Objects::nonNull).toList());
     }
 
     public ReadersResponse getAllReaders() {

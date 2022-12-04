@@ -11,6 +11,7 @@ import pl.umk.allegroworkshop.restIntroduction.api.v1.model.response.BooksRespon
 import pl.umk.allegroworkshop.restIntroduction.api.v1.model.response.ReadersResponse;
 import pl.umk.allegroworkshop.restIntroduction.api.v1.model.response.RemovedBookDTO;
 
+import javax.annotation.PostConstruct;
 import javax.websocket.server.PathParam;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
@@ -23,32 +24,37 @@ public class LibraryApi {
         this.libraryProvider = libraryProvider;
     }
 
+    @GetMapping(value = "/getBooks", produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<BooksResponse> getAllBooks() {
         return ResponseEntity
                 .status(200)
-                .body(null);
+                .body(libraryProvider.getAllBooks());
     }
 
-    public ResponseEntity<BooksResponse> getBooksById() {
+    @GetMapping(value = "/getBook/{id}", produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity<BooksResponse> getBooksById(@PathVariable Integer id) {
         return ResponseEntity
                 .status(200)
-                .body(null);
+                .body(libraryProvider.getBookById(id));
     }
 
+    @GetMapping(value = "/getReaders", produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<ReadersResponse> getAllReaders() {
         return ResponseEntity
                 .status(200)
-                .body(null);
+                .body(libraryProvider.getAllReaders());
     }
 
-    public ResponseEntity<ReadersResponse> getReaderById() {
+    @GetMapping(value = "/getReader", produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity<ReadersResponse> getReaderById(@RequestParam("id") Integer id) {
         return ResponseEntity
                 .status(200)
-                .body(null);
+                .body(libraryProvider.getReaderById(id));
     }
 
-    public ResponseEntity<AddedBookDTO> addNewBookToLibrary() {
-        return ResponseEntity.status(200).body(null);
+    @PutMapping(value = "/addBook", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
+    public ResponseEntity<AddedBookDTO> addNewBookToLibrary(@RequestBody BookToAddDTO bookToAdd) {
+        return ResponseEntity.status(201).body(libraryProvider.addNewBook(bookToAdd));
     }
 
     public ResponseEntity<RemovedBookDTO> removeBookFromLibrary() {
