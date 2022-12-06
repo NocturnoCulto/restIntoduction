@@ -17,7 +17,7 @@ public class SpoonacularCacheConfiguration {
     private final SpoonacularClient spoonacularClient;
 
     public SpoonacularCacheConfiguration(@Value("${spoonacular.cache.ingredients_information_size}") Long spoonacularIngredientsInformationCacheSize,
-                                         @Value("${spoonacular.cache.refres_after_write}") Long refreshAfterWrite,
+                                         @Value("${spoonacular.cache.refresh_after_write}") Long refreshAfterWrite,
                                          @Value("${spoonacular.cache.expire_after_write}") Long expireAfterWrite,
                                          SpoonacularClient spoonacularClient) {
         this.spoonacularIngredientsInformationCacheSize = spoonacularIngredientsInformationCacheSize;
