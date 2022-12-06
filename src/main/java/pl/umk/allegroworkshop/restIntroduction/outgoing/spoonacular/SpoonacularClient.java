@@ -62,10 +62,10 @@ public class SpoonacularClient {
             return spoonacularRestTemplate.getForObject(uriString, SpoonacularIngredientInformation.class);
         } catch (RestClientException ex) {
             try {
-                logger.warn("Retry request for ingredient information. Exception for first request cause = {}", ex.getCause().toString());
+                logger.warn("Retry request for ingredient information. Exception for first request cause", ex.getCause());
                 return spoonacularRestTemplateForRetry.getForObject(uriString, SpoonacularIngredientInformation.class);
             } catch (RestClientException retryEx) {
-                logger.error("Retry request for ingredient information failed. Cause = {}", retryEx.getCause().toString());
+                logger.error("Retry request for ingredient information failed. Cause", retryEx.getCause());
                 return null;
             }
         }
