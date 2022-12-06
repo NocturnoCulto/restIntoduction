@@ -12,11 +12,13 @@ import pl.umk.allegroworkshop.restIntroduction.outgoing.spoonacular.model.Spoona
 @Component
 public class SpoonacularService {
     private final SpoonacularClient spoonacularClient;
-    private final LoadingCache<Long, SpoonacularIngredientInformation> ingredientsInformationCache;
+//    private final LoadingCache<Long, SpoonacularIngredientInformation> ingredientsInformationCache;
 
-    public SpoonacularService(SpoonacularClient spoonacularClient, LoadingCache<Long, SpoonacularIngredientInformation> ingredientsInformationCache) {
+    public SpoonacularService(SpoonacularClient spoonacularClient
+//                              LoadingCache<Long,SpoonacularIngredientInformation> ingredientsInformationCache
+    ) {
         this.spoonacularClient = spoonacularClient;
-        this.ingredientsInformationCache = ingredientsInformationCache;
+//        this.ingredientsInformationCache = ingredientsInformationCache;
     }
 
     public ExternalIngredientsList getIngredientsByName(String name) {
@@ -25,17 +27,8 @@ public class SpoonacularService {
     }
 
     public ExternalIngredientDetails getExternalIngredientDetails(Long id) {
-        SpoonacularIngredientInformation spoonacularIngredientInformation = ingredientsInformationCache.get(id);
-        if (spoonacularIngredientInformation == null) return null;
 
-        return new ExternalIngredientDetails(
-                spoonacularIngredientInformation.getId(),
-                spoonacularIngredientInformation.getName(),
-                spoonacularIngredientInformation.getAmount(),
-                spoonacularIngredientInformation.getUnit(),
-                spoonacularIngredientInformation.getPossibleUnits(),
-                getCalories(spoonacularIngredientInformation.getNutrition())
-        );
+        return null;
     }
 
     private Float getCalories(SpoonacularNutrition nutrition) {

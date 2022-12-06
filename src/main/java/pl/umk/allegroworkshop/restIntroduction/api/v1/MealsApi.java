@@ -20,39 +20,28 @@ public class MealsApi {
         this.mealsProvider = mealsProvider;
     }
 
-    @GetMapping(value = "/getMeals", produces = apiVersionAccept)
-    public ResponseEntity<MealsResponse> getAllMeals(@RequestHeader HttpHeaders headers) {
-        if (!Objects.equals(headers.getFirst("accept"), apiVersionAccept)) return ResponseEntity.status(406).body(null);
-        return ResponseEntity
-                .status(200)
-                .body(mealsProvider.getAllMeals());
+    // getMeals
+    public ResponseEntity<MealsResponse> getAllMeals() {
+        return null;
     }
 
-    @GetMapping(value = "/getMeal/{id}", produces = apiVersionAccept)
-    public ResponseEntity<MealsResponse> getMealById(@PathVariable String id) {
-        return ResponseEntity
-                .status(200)
-                .body(mealsProvider.getMealById(id));
+    // getMeal/{id}
+    public ResponseEntity<MealsResponse> getMealById() {
+        return null;
     }
 
-    @PutMapping(value = "/addMeal", consumes = MediaType.APPLICATION_JSON_VALUE, produces = apiVersionAccept)
-    public ResponseEntity<MealsResponse> addMeal(@RequestBody InputMeal inputMeal) {
-        return ResponseEntity
-                .status(201)
-                .body(mealsProvider.addMeal(inputMeal));
+    // addMeal - przyjmuje json w modelu InputMeal
+    public ResponseEntity<MealsResponse> addMeal() {
+        return null;
     }
 
-    @GetMapping(value = "/searchIngredients", produces = apiVersionAccept)
-    public ResponseEntity<ExternalIngredientsList> searchIngredients(@RequestParam("name") String name) {
-        return ResponseEntity
-                .status(200)
-                .body(mealsProvider.getIngredientsListByName(name));
+    // searchIngredients by name
+    public ResponseEntity<ExternalIngredientsList> searchIngredients() {
+        return null;
     }
 
-    @GetMapping(value = "/ingredientDetails", produces = apiVersionAccept)
-    public ResponseEntity<ExternalIngredientDetails> searchDetails(@RequestParam("id") Long id) {
-        return ResponseEntity
-                .status(200)
-                .body(mealsProvider.getExternalIngredientsDetails(id));
+    // ingredientDetails by id
+    public ResponseEntity<ExternalIngredientDetails> searchDetails() {
+        return null;
     }
 }

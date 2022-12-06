@@ -13,35 +13,30 @@ import java.util.List;
 
 @Component
 public class SpoonacularClient {
-    private final RestTemplate spoonacularRestTemplate;
-    private final RestTemplate spoonacularRestTemplateForRetry;
-    private final SpoonacularClientConfiguration configuration;
 
     private final Logger logger = LoggerFactory.getLogger(SpoonacularClient.class);
 
-    public SpoonacularClient(RestTemplate spoonacularRestTemplate, RestTemplate spoonacularRestTemplateForRetry, SpoonacularClientConfiguration configuration) {
-        this.spoonacularRestTemplate = spoonacularRestTemplate;
-        this.spoonacularRestTemplateForRetry = spoonacularRestTemplateForRetry;
-        this.configuration = configuration;
+    public SpoonacularClient(
+    ) {
     }
 
     public SearchResults findIngredientsByName(String name) {
-        String uriString = UriComponentsBuilder.fromUriString(configuration.getUrl())
-                .path(configuration.getSearchPath())
+        String uriString = UriComponentsBuilder.fromUriString("url z konfiguracji")
+                .path("ścieżka z konfiguracji")
                 .queryParam("query", name)
-                .queryParam("number", configuration.getSearchLimit())
+                .queryParam("number", "limit")
                 .queryParam("sort", "calories")
                 .queryParam("sortDirection", "desc")
-                .queryParam("apiKey", configuration.getApiKey())
+                .queryParam("apiKey", "key")
                 .build()
                 .toUriString();
 
         try {
-            return spoonacularRestTemplate.getForObject(uriString, SearchResults.class);
+            return null;
         } catch (Exception ex) {
             try {
                 logger.warn("Retry request for ingredients by name. Exception for first request cause = {}", ex.getCause().toString());
-                return spoonacularRestTemplateForRetry.getForObject(uriString, SearchResults.class);
+                return null;
             } catch (RestClientException retryEx) {
                 logger.error("Retry request for ingredients by name failed. Cause = {}", retryEx.getCause().toString());
                 return new SearchResults(List.of());
@@ -50,20 +45,20 @@ public class SpoonacularClient {
     }
 
     public SpoonacularIngredientInformation getIngredientInformationById(Long id) {
-        String uriString = UriComponentsBuilder.fromUriString(configuration.getUrl())
-                .path(String.format(configuration.getDetailsPath(), id))
+        String uriString = UriComponentsBuilder.fromUriString("")
+                .path(String.format("url/%s", id))
                 .queryParam("amount", 100)
                 .queryParam("unit", "gram")
-                .queryParam("apiKey", configuration.getApiKey())
+                .queryParam("apiKey", "key")
                 .build()
                 .toUriString();
 
         try {
-            return spoonacularRestTemplate.getForObject(uriString, SpoonacularIngredientInformation.class);
+            return null;
         } catch (RestClientException ex) {
             try {
                 logger.warn("Retry request for ingredient information. Exception for first request cause = {}", ex.getCause().toString());
-                return spoonacularRestTemplateForRetry.getForObject(uriString, SpoonacularIngredientInformation.class);
+                return null;
             } catch (RestClientException retryEx) {
                 logger.error("Retry request for ingredient information failed. Cause = {}", retryEx.getCause().toString());
                 return null;

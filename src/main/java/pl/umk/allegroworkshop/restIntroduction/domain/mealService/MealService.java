@@ -26,9 +26,10 @@ public class MealService {
         return mealsRepository.getMealById(id);
     }
 
+    // TIP: MealToAdd zawiera listę składników z kaloriami, natomiast Meal zawiera sumę wszystkich składników
+    //TIP2: Jako datę stworzenia posiłku przyjmujemy moment zapisania w repozytorium
     public Meal addMeal(MealToAdd mealToAdd) {
-        Integer caloriesSum = mealToAdd.getIngredients().stream().map(Ingredient::getCalories).mapToInt(Integer::intValue).sum();
-        return mealsRepository.insertMeal(new Meal(RandomStringUtils.random(8, true, true), mealToAdd.getName(), caloriesSum, mealToAdd.getIngredients(), LocalDateTime.now()));
+        return null;
     }
 
     public String removeMeal(String idToRemove) {
