@@ -1,0 +1,32 @@
+{
+  "results": [
+    {
+      "id": 19400,
+      "name": "banana chips",
+      "image": "banana-chips.jpg"
+    },
+    {
+      "id": 93671,
+      "name": "banana bread mix",
+      "image": "carrot-quick-bread.png"
+    },
+    {
+      "id": 93779,
+      "name": "banana liqueur",
+      "image": "limoncello.jpg"
+    },
+    {
+      "id": 19318,
+      "name": "banana pudding mix",
+      "image": "vanilla-pudding.png"
+    },
+    {
+      "id": 18019,
+      "name": "banana bread",
+      "image": "quick-bread.png"
+    }
+  ],
+  "offset": 0,
+  "number": 20,
+  "totalResults": 5
+}
