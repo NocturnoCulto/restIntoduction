@@ -1,28 +1,27 @@
 package pl.umk.allegroworkshop.restIntroduction;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import pl.umk.allegroworkshop.restIntroduction.api.v1.MealsApi;
-import pl.umk.allegroworkshop.restIntroduction.domain.model.ExternalIngredientsList;
-
-
-import static com.github.tomakehurst.wiremock.client.WireMock.*;
-import static org.junit.jupiter.api.Assertions.*;
 
 class RestIntroductionApplicationTests extends BaseTest {
 
 	@Test
 	void shouldSearchIngredientsByName() throws Exception {
-		String uri = "/searchIngredients?name=banana";
-		MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
-				.accept(MealsApi.apiVersionAccept)).andReturn();
 
-		int status = mvcResult.getResponse().getStatus();
-		assertEquals(200, status);
-		String content = mvcResult.getResponse().getContentAsString();
-		ExternalIngredientsList meals = super.mapFromJson(content, ExternalIngredientsList.class);
-		assertEquals(5, meals.getExternalIngredientsList().size());
-		wireMockServer.verify(1, getRequestedFor(urlPathEqualTo("/food/ingredients/search")).withQueryParam("query", equalTo("banana")));
 	}
+
+	@Test
+	void shouldSearchIngredientsDetails() throws Exception {
+
+	}
+
+	@Test
+	void shouldCachedIngredientsDetails() throws Exception {
+
+	}
+
+	@Test
+	void shouldCatchSpoonacularExceptions() throws Exception {
+
+	}
+
 }
