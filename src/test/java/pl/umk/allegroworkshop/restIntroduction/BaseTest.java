@@ -63,19 +63,13 @@ public abstract class BaseTest {
     @AfterEach
     protected void clearAfterEach() {
         // You need to reset all wireMock mappings
-        wireMockServer.resetMappings();
+        wireMockServer.resetAll();
     }
 
     @AfterAll
     void stopWireMock() {
         // stop wireMock server
         wireMockServer.stop();
-    }
-
-    protected void stubSpoonacularFailedRequest() {
-        stubFor(get(urlPathMatching(".*"))
-                .willReturn(aResponse().withBodyFile("serverError.json")
-                        .withHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE).withStatus(503)));
     }
 
     protected <T> T mapFromJson(String json, Class<T> clazz)

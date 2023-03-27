@@ -87,18 +87,9 @@ class RestIntroductionApplicationTests extends BaseTest {
     }
 
     @Test
-    void shouldCatchSpoonacularExceptionsAndRetryRequest() throws Exception {
-        //given:
-        wireMockServer.resetAll();
-        stubSpoonacularFailedRequest();
-        String uri = "/searchIngredients?name=banana";
+    void shouldCatchSpoonacularExceptions() throws Exception {
+        assertEquals(true, false);
 
-        //when:
-        ExternalIngredientsList response = getResponseForUri(uri, ExternalIngredientsList.class);
-
-        //then:
-        assertEquals(0, response.getExternalIngredientsList().size());
-        wireMockServer.verify(2, getRequestedFor(urlPathEqualTo("/food/ingredients/search")));
     }
 
 }
