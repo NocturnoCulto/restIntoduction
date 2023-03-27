@@ -101,4 +101,26 @@ class RestIntroductionApplicationTests extends BaseTest {
         wireMockServer.verify(2, getRequestedFor(urlPathEqualTo("/food/ingredients/search")));
     }
 
+    @Test
+    void shouldRetrySpoonacularServiceAndReturnResponse() throws Exception {
+        // given:
+        stubFirstRequestFailedScenario();
+        String uri = "/searchIngredients?name=apple";
+
+        // when:
+        ExternalIngredientsList response = getResponseForUri(uri, ExternalIngredientsList.class);
+
+        // then:
+
+        assertEquals(5, response.getExternalIngredientsList().size());
+        assertEquals("apple 1", response.getExternalIngredientsList().get(0).getName());
+
+        wireMockServer.verify(2, getRequestedFor(urlPathEqualTo("/food/ingredients/search"))
+                .withQueryParam("query", equalTo("apple"))
+                .withQueryParam("number", equalTo("20"))
+                .withQueryParam("sort", equalTo("calories"))
+                .withQueryParam("sortDirection", equalTo("desc"))
+                .withQueryParam("apiKey", equalTo("apiKey")));
+    }
+
 }

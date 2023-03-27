@@ -26,6 +26,7 @@ import pl.umk.allegroworkshop.restIntroduction.outgoing.spoonacular.model.Spoona
 import java.io.IOException;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
+import static com.github.tomakehurst.wiremock.stubbing.Scenario.STARTED;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ActiveProfiles("integration")
@@ -82,6 +83,22 @@ public abstract class BaseTest {
         stubFor(get(urlPathMatching(".*"))
                 .willReturn(aResponse().withBodyFile("serverError.json")
                         .withHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE).withStatus(503)));
+    }
+
+    protected void stubFirstRequestFailedScenario() {
+        stubFor(get(urlPathEqualTo("/food/ingredients/search")).inScenario("retryScenario")
+                .whenScenarioStateIs(STARTED)
+                .withQueryParam("query", equalTo("apple"))
+                .willReturn(aResponse().withBodyFile("serverError.json")
+                        .withHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE).withStatus(503))
+                .willSetStateTo("afterFirstErrorResponse"));
+
+        stubFor(get(urlPathEqualTo("/food/ingredients/search")).inScenario("retryScenario")
+                .whenScenarioStateIs("afterFirstErrorResponse")
+                .withQueryParam("query", equalTo("apple"))
+                .willReturn(aResponse().withBodyFile("apple.json")
+                        .withHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE).withStatus(200)));
+
     }
 
     protected <T> T mapFromJson(String json, Class<T> clazz)

@@ -1,0 +1,32 @@
+{
+  "results": [
+    {
+      "id": 1,
+      "name": "apple 1",
+      "image": "apple_1.jpg"
+    },
+    {
+      "id": 2,
+      "name": "apple 2",
+      "image": "apple_2.jpg"
+    },
+    {
+      "id": 3,
+      "name": "apple 3",
+      "image": "apple_3.jpg"
+    },
+    {
+      "id": 4,
+      "name": "apple 4",
+      "image": "apple_4.jpg"
+    },
+    {
+      "id": 5,
+      "name": "apple 5",
+      "image": "apple_5.jpg"
+    }
+  ],
+  "offset": 0,
+  "number": 20,
+  "totalResults": 5
+}
