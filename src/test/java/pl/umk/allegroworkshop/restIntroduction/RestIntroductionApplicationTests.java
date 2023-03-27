@@ -1,9 +1,6 @@
 package pl.umk.allegroworkshop.restIntroduction;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import pl.umk.allegroworkshop.restIntroduction.api.v1.MealsApi;
 import pl.umk.allegroworkshop.restIntroduction.api.v1.model.response.MealsResponse;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -16,15 +13,10 @@ class RestIntroductionApplicationTests extends BaseTest {
         String uri = "/getMeals";
 
         //when:
-        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
-                .accept(MealsApi.apiVersionAccept)).andReturn();
+        MealsResponse response = getResponseForUri(uri, MealsResponse.class);
 
         //then:
-        int status = mvcResult.getResponse().getStatus();
-        assertEquals(200, status);
-        String content = mvcResult.getResponse().getContentAsString();
-        MealsResponse meals = super.mapFromJson(content, MealsResponse.class);
-        assertEquals(4, meals.getMeals().size());
+        assertEquals(4, response.getMeals().size());
     }
 
     @Test

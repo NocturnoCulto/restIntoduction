@@ -1,29 +1,29 @@
 {
   "results": [
     {
-      "id": 19400,
-      "name": "banana chips",
-      "image": "banana-chips.jpg"
+      "id": 1,
+      "name": "banana 1",
+      "image": "banana_1.jpg"
     },
     {
-      "id": 93671,
-      "name": "banana bread mix",
-      "image": "carrot-quick-bread.png"
+      "id": 2,
+      "name": "banana 2",
+      "image": "banana_2.jpg"
     },
     {
-      "id": 93779,
-      "name": "banana liqueur",
-      "image": "limoncello.jpg"
+      "id": 3,
+      "name": "banana 3",
+      "image": "banana_3.jpg"
     },
     {
-      "id": 19318,
-      "name": "banana pudding mix",
-      "image": "vanilla-pudding.png"
+      "id": 4,
+      "name": "banana 4",
+      "image": "banana_4.jpg"
     },
     {
-      "id": 18019,
-      "name": "banana bread",
-      "image": "quick-bread.png"
+      "id": 5,
+      "name": "banana 5",
+      "image": "banana_5.jpg"
     }
   ],
   "offset": 0,

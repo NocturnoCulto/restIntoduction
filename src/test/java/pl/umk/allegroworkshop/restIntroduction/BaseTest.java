@@ -6,25 +6,21 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.github.tomakehurst.wiremock.WireMockServer;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.*;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
+import pl.umk.allegroworkshop.restIntroduction.api.v1.MealsApi;
 
 import java.io.IOException;
-
-import static com.github.tomakehurst.wiremock.client.WireMock.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ActiveProfiles("integration")
@@ -36,19 +32,28 @@ public abstract class BaseTest {
     @Autowired
     WebApplicationContext webApplicationContext;
 
+    WireMockServer wireMockServer = null; // You need to initialize wireMock server on specific port
+
     @BeforeAll
     void startWireMock() {
-
+        // start wireMock server
     }
 
     @BeforeEach
     protected void setUp() {
         mvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
+
+        // implement wireMock stubs
+    }
+
+    @AfterEach
+    protected void clearAfterEach() {
+        // You need to reset all wireMock mappings
     }
 
     @AfterAll
     void stopWireMock() {
-
+        // stop wireMock server
     }
 
     protected String mapToJson(Object obj) throws JsonProcessingException {
@@ -61,5 +66,13 @@ public abstract class BaseTest {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.registerModule(new JavaTimeModule());
         return objectMapper.readValue(json, clazz);
+    }
+
+    protected <T> T getResponseForUri(String uri, Class<T> clazz) throws Exception {
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
+                .accept(MealsApi.apiVersionAccept)).andReturn();
+
+        String content = mvcResult.getResponse().getContentAsString();
+        return mapFromJson(content, clazz);
     }
 }
