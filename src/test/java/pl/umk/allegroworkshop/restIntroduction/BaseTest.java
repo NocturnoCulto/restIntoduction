@@ -56,10 +56,6 @@ public abstract class BaseTest {
         // stop wireMock server
     }
 
-    protected String mapToJson(Object obj) throws JsonProcessingException {
-        ObjectMapper objectMapper = new ObjectMapper();
-        return objectMapper.writeValueAsString(obj);
-    }
     protected <T> T mapFromJson(String json, Class<T> clazz)
             throws JsonParseException, JsonMappingException, IOException {
 
@@ -68,11 +64,11 @@ public abstract class BaseTest {
         return objectMapper.readValue(json, clazz);
     }
 
-    protected <T> T getResponseForUri(String uri, Class<T> clazz) throws Exception {
+    protected <T> T getResponseForUri(String uri, Class<T> responseClazz) throws Exception {
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
                 .accept(MealsApi.apiVersionAccept)).andReturn();
 
         String content = mvcResult.getResponse().getContentAsString();
-        return mapFromJson(content, clazz);
+        return mapFromJson(content, responseClazz);
     }
 }
