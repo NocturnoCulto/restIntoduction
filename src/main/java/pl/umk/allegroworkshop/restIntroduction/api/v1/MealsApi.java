@@ -14,7 +14,7 @@ import java.util.Objects;
 @RestController()
 public class MealsApi {
     private final MealsProvider mealsProvider;
-    public static final String apiVersionAccept = "application/v1+json";
+    public static final String apiVersionAccept = "application/json";
 
     public MealsApi(MealsProvider mealsProvider) {
         this.mealsProvider = mealsProvider;
