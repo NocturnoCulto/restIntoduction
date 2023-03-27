@@ -63,7 +63,7 @@ public abstract class BaseTest {
     @AfterEach
     protected void clearAfterEach() {
         // You need to reset all wireMock mappings
-        wireMockServer.resetAll();
+        wireMockServer.resetMappings();
     }
 
     @AfterAll
