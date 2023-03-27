@@ -1,5 +1,8 @@
 package pl.umk.allegroworkshop.restIntroduction.domain.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.List;
 
 public class ExternalIngredientDetails {
@@ -10,7 +13,13 @@ public class ExternalIngredientDetails {
     private final List<String> possibleUnits;
     private final Float calories;
 
-    public ExternalIngredientDetails(Long id, String name, Integer amount, String unit, List<String> possibleUnits, Float calories) {
+    @JsonCreator
+    public ExternalIngredientDetails(@JsonProperty("id") Long id,
+                                     @JsonProperty("name") String name,
+                                     @JsonProperty("amount") Integer amount,
+                                     @JsonProperty("unit") String unit,
+                                     @JsonProperty("possibleUnits") List<String> possibleUnits,
+                                     @JsonProperty("calories") Float calories) {
         this.id = id;
         this.name = name;
         this.amount = amount;
