@@ -64,8 +64,26 @@ class RestIntroductionApplicationTests extends BaseTest {
 
     @Test
     void shouldCachedIngredientsDetails() throws Exception {
-        assertEquals(true, false);
+        // given:
+        String uri = "/ingredientDetails?id=1";
 
+        // when:
+        for (int i = 0; i < 10; i++) {
+            getResponseForUri(uri, ExternalIngredientDetails.class);
+        }
+        ExternalIngredientDetails response = getResponseForUri(uri, ExternalIngredientDetails.class);
+
+        // then:
+        assertEquals(1, response.getId());
+        assertEquals("banana chips", response.getName());
+        assertEquals(100, response.getAmount());
+        assertEquals(5, response.getPossibleUnits().size());
+        assertEquals(519, response.getCalories());
+
+        wireMockServer.verify(1, getRequestedFor(urlPathEqualTo("/food/ingredients/1/information"))
+                .withQueryParam("amount", equalTo("100"))
+                .withQueryParam("unit", equalTo("gram"))
+                .withQueryParam("apiKey", equalTo("apiKey")));
     }
 
     @Test
