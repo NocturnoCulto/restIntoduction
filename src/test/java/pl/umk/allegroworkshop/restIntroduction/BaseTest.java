@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.github.benmanes.caffeine.cache.LoadingCache;
 import com.github.tomakehurst.wiremock.WireMockServer;
 import org.junit.jupiter.api.*;
 import org.junit.runner.RunWith;
@@ -20,6 +21,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import pl.umk.allegroworkshop.restIntroduction.api.v1.MealsApi;
+import pl.umk.allegroworkshop.restIntroduction.outgoing.spoonacular.model.SpoonacularIngredientInformation;
 
 import java.io.IOException;
 
@@ -35,6 +37,9 @@ public abstract class BaseTest {
     @Autowired
     WebApplicationContext webApplicationContext;
 
+    @Autowired
+    private LoadingCache<Long, SpoonacularIngredientInformation> ingredientsInformationCache;
+
     WireMockServer wireMockServer = new WireMockServer(8123); // You need to initialize wireMock server on specific port
 
     @BeforeAll
@@ -46,6 +51,7 @@ public abstract class BaseTest {
     @BeforeEach
     protected void setUp() {
         mvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
+        ingredientsInformationCache.invalidateAll();
 
         // implement wireMock stubs
         configureFor("localhost", 8123);
