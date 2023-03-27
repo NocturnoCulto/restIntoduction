@@ -9,6 +9,8 @@ import org.junit.jupiter.api.*;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -21,6 +23,8 @@ import pl.umk.allegroworkshop.restIntroduction.api.v1.MealsApi;
 
 import java.io.IOException;
 
+import static com.github.tomakehurst.wiremock.client.WireMock.*;
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @ActiveProfiles("integration")
 @SpringBootTest(classes = RestIntroductionApplication.class)
@@ -31,11 +35,12 @@ public abstract class BaseTest {
     @Autowired
     WebApplicationContext webApplicationContext;
 
-    WireMockServer wireMockServer = null; // You need to initialize wireMock server on specific port
+    WireMockServer wireMockServer = new WireMockServer(8123); // You need to initialize wireMock server on specific port
 
     @BeforeAll
     void startWireMock() {
         // start wireMock server
+        wireMockServer.start();
     }
 
     @BeforeEach
@@ -43,16 +48,23 @@ public abstract class BaseTest {
         mvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
 
         // implement wireMock stubs
+        configureFor("localhost", 8123);
+        stubFor(get(urlPathEqualTo("/food/ingredients/search"))
+                .withQueryParam("query", equalTo("banana"))
+                .willReturn(aResponse().withBodyFile("byName.json")
+                .withHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE).withStatus(200)));
     }
 
     @AfterEach
     protected void clearAfterEach() {
         // You need to reset all wireMock mappings
+        wireMockServer.resetAll();
     }
 
     @AfterAll
     void stopWireMock() {
         // stop wireMock server
+        wireMockServer.stop();
     }
 
     protected <T> T mapFromJson(String json, Class<T> clazz)
