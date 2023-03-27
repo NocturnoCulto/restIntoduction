@@ -60,11 +60,11 @@ public abstract class BaseTest {
         stubFor(get(urlPathEqualTo("/food/ingredients/search"))
                 .withQueryParam("query", equalTo("banana"))
                 .willReturn(aResponse().withBodyFile("byName.json")
-                .withHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE).withStatus(200)));
+                        .withHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE).withStatus(200)));
 
         stubFor(get(urlPathMatching("/food/ingredients/[0-9]+/information"))
                 .willReturn(aResponse().withBodyFile("ingredientsDetails.json")
-                .withHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE).withStatus(200)));
+                        .withHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE).withStatus(200)));
     }
 
     @AfterEach
