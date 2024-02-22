@@ -46,7 +46,8 @@ public class LibraryApi {
     }
 
     @GetMapping(value = "/reader", produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<ReadersResponse> getReaderById(@RequestParam("id") Integer id) {
+    public ResponseEntity<ReadersResponse> getReaderById(@RequestParam("id") Integer id,
+                                                         @RequestParam(value = "foo", required = false) String foo) {
         return ResponseEntity
                 .status(200)
                 .body(libraryProvider.getReaderById(id));
