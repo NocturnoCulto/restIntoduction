@@ -24,35 +24,35 @@ public class LibraryApi {
         this.libraryProvider = libraryProvider;
     }
 
-    @GetMapping(value = "/getBooks", produces = APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/books", produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<BooksResponse> getAllBooks() {
         return ResponseEntity
                 .status(200)
                 .body(libraryProvider.getAllBooks());
     }
 
-    @GetMapping(value = "/getBook/{id}", produces = APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/book/{id}", produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<BooksResponse> getBooksById(@PathVariable Integer id) {
         return ResponseEntity
                 .status(200)
                 .body(libraryProvider.getBookById(id));
     }
 
-    @GetMapping(value = "/getReaders", produces = APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/readers", produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<ReadersResponse> getAllReaders() {
         return ResponseEntity
                 .status(200)
                 .body(libraryProvider.getAllReaders());
     }
 
-    @GetMapping(value = "/getReader", produces = APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/reader", produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<ReadersResponse> getReaderById(@RequestParam("id") Integer id) {
         return ResponseEntity
                 .status(200)
                 .body(libraryProvider.getReaderById(id));
     }
 
-    @PutMapping(value = "/addBook", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
+    @PutMapping(value = "/book", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
     public ResponseEntity<AddedBookDTO> addNewBookToLibrary(@RequestBody BookToAddDTO bookToAdd) {
         return ResponseEntity.status(201).body(libraryProvider.addNewBook(bookToAdd));
     }

@@ -22,7 +22,7 @@ class RestIntroductionApplicationTests extends BaseTest {
 	// Tip: check LibraryProvider component and its methods
 	@Test
 	void getAllBooksEndpoint() throws Exception {
-		String uri = "/getBooks";
+		String uri = "/books";
 		MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
 				.accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
 
@@ -38,7 +38,7 @@ class RestIntroductionApplicationTests extends BaseTest {
 	// Tip: check LibraryProvider component and its methods
 	@Test
 	void getOneBookEndpoint() throws Exception {
-		String uri = "/getBook/125";
+		String uri = "/book/125";
 		MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
 				.accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
 
@@ -54,7 +54,7 @@ class RestIntroductionApplicationTests extends BaseTest {
 	// Tip: check LibraryProvider component and its methods
 	@Test
 	void getEmptyBooksList() throws Exception {
-		String uri = "/getBook/1928";
+		String uri = "/book/1928";
 		MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
 				.accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
 
@@ -70,7 +70,7 @@ class RestIntroductionApplicationTests extends BaseTest {
 
 	@Test
 	void getAllReadersEndpoint() throws Exception {
-		String uri = "/getReaders";
+		String uri = "/readers";
 		MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
 				.accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
 
@@ -86,7 +86,7 @@ class RestIntroductionApplicationTests extends BaseTest {
 
 	@Test
 	void getOneReaderEndpoint() throws Exception {
-		String uri = "/getReader?id=3";
+		String uri = "/reader?id=3";
 		MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
 				.accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
 
@@ -99,7 +99,7 @@ class RestIntroductionApplicationTests extends BaseTest {
 
 	@Test
 	void getEmptyReaderList() throws Exception {
-		String uri = "/getReader?id=8238";
+		String uri = "/reader?id=8238";
 		MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
 				.accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
 
@@ -114,7 +114,7 @@ class RestIntroductionApplicationTests extends BaseTest {
 	// After adding the book, the api should return http created
 	@Test
 	void addBook() throws Exception {
-		String uri = "/addBook";
+		String uri = "/book";
 		BookToAddDTO bookToAdd = new BookToAddDTO("Lalka", "Boleslaw", "Prus");
 		String inputJson = super.mapToJson(bookToAdd);
 
@@ -134,7 +134,7 @@ class RestIntroductionApplicationTests extends BaseTest {
 	// create delete endpoint /removeBook which in the body of the query expects the json structure described in the BookToRemoveDTO class
 	@Test
 	void removeBook() throws Exception {
-		String uri = "/removeBook";
+		String uri = "/book";
 		BookToRemoveDTO bookToRemove = new BookToRemoveDTO(150);
 		String inputJson = super.mapToJson(bookToRemove);
 
@@ -148,7 +148,7 @@ class RestIntroductionApplicationTests extends BaseTest {
 		RemovedBookDTO removedBook = super.mapFromJson(content, RemovedBookDTO.class);
 		assertEquals(150, removedBook.getRemovedBookId());
 
-		String uriForTest = "/getBook/150";
+		String uriForTest = "/book/150";
 		MvcResult mvcResultForTest = mvc.perform(MockMvcRequestBuilders.get(uriForTest)
 				.accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
 
