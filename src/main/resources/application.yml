@@ -2,12 +2,9 @@ apiV1:
   acceptType: 'application/json'
   
 description_store:
-  url: http://localhost:8081
-  path: '/descriptionById/%s'
-  connect_timeout: 100
-  read_timeout: 200
-  retry_read_timeout: 2000
-  cache:
-    size: 500
-    refresh_after_write: 600
-    expire_after_write: 3600
+  url:
+  path:
+  connect_timeout:
+  read_timeout:
+  retry_read_timeout:
+
