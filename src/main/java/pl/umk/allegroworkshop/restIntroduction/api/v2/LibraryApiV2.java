@@ -5,18 +5,18 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
-import pl.umk.allegroworkshop.restIntroduction.api.v1.LibraryProvider;
+import pl.umk.allegroworkshop.restIntroduction.domain.libraryService.LibraryService;
 import pl.umk.allegroworkshop.restIntroduction.api.v1.model.response.BooksResponse;
 
 import java.util.Objects;
 
 @RestController()
 public class LibraryApiV2 {
-    private final LibraryProvider libraryProvider;
+    private final LibraryService libraryService;
     static final String apiVersionAcceptV2 = "application/v2+json";
 
-    public LibraryApiV2(LibraryProvider libraryProvider) {
-        this.libraryProvider = libraryProvider;
+    public LibraryApiV2(LibraryService libraryService) {
+        this.libraryService = libraryService;
     }
 
     @GetMapping(value = "/getBooks", produces = apiVersionAcceptV2)
@@ -25,6 +25,6 @@ public class LibraryApiV2 {
 
         return ResponseEntity
                 .status(200)
-                .body(libraryProvider.getAllBooks());
+                .body(libraryService.getAllBooks());
     }
 }

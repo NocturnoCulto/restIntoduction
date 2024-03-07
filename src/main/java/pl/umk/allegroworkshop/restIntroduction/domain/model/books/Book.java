@@ -8,13 +8,15 @@ public class Book implements Comparable<Book> {
     private final Author author;
     private final  Boolean inStock;
     private final  Integer readerId;
+    private final Description description;
 
-    public Book(Integer id, String title, Author author, Boolean inStock, Integer readerId) {
+    public Book(Integer id, String title, Author author, Boolean inStock, Integer readerId, Description description) {
         this.id = id;
         this.title = title;
         this.author = author;
         this.inStock = inStock;
         this.readerId = readerId;
+        this.description = description;
     }
 
     public Integer getId() {
@@ -35,6 +37,10 @@ public class Book implements Comparable<Book> {
 
     public Integer getReaderId() {
         return readerId;
+    }
+
+    public Description getDescription() {
+        return description;
     }
 
     @Override

@@ -12,8 +12,8 @@ public class BookDTO {
     private final String authorFirstName;
     private final String authorLastName;
     private final Boolean inStock;
-
     private final Integer readerId;
+    private final DescriptionDTO description;
 
     @JsonCreator
     public BookDTO(@JsonProperty("id") Integer id,
@@ -21,13 +21,15 @@ public class BookDTO {
                    @JsonProperty("authorFirstName") String authorFirstName,
                    @JsonProperty("authorLastName") String authorLastName,
                    @JsonProperty("inStock") Boolean inStock,
-                   @JsonProperty("readerId") Integer readerId) {
+                   @JsonProperty("readerId") Integer readerId,
+                   @JsonProperty("description") DescriptionDTO description) {
         this.id = id;
         this.title = title;
         this.authorFirstName = authorFirstName;
         this.authorLastName = authorLastName;
         this.inStock = inStock;
         this.readerId = readerId;
+        this.description = description;
     }
 
     public Integer getId() {
@@ -52,5 +54,9 @@ public class BookDTO {
 
     public Integer getReaderId() {
         return readerId;
+    }
+
+    public DescriptionDTO getDescription() {
+        return description;
     }
 }

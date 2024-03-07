@@ -18,7 +18,7 @@ class RestIntroductionApplicationTests extends BaseTest {
 
 	@Test
 	void getAllBooksEndpoint() throws Exception {
-		String uri = "/getBooks";
+		String uri = "/books";
 		MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
 				.accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
 
@@ -31,7 +31,7 @@ class RestIntroductionApplicationTests extends BaseTest {
 
 	@Test
 	void getOneBookEndpoint() throws Exception {
-		String uri = "/getBook/125";
+		String uri = "/book/125";
 		MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
 				.accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
 
@@ -43,7 +43,7 @@ class RestIntroductionApplicationTests extends BaseTest {
 	}
 	@Test
 	void getEmptyBooksList() throws Exception {
-		String uri = "/getBook/1928";
+		String uri = "/book/1928";
 		MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
 				.accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
 

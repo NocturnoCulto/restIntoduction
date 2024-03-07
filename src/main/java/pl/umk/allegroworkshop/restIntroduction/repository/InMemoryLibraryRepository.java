@@ -35,7 +35,7 @@ public class InMemoryLibraryRepository implements LibraryRepository {
     @Override
     public Book addBookToLibrary(BookToAdd bookToAdd) {
         Integer newKey = Collections.max(library.keySet()) + 1;
-        Book newBook = new Book(newKey, bookToAdd.getTitle(), new Author(bookToAdd.getAuthorFirstName(), bookToAdd.getAuthorLastName()), true, null);
+        Book newBook = new Book(newKey, bookToAdd.getTitle(), new Author(bookToAdd.getAuthorFirstName(), bookToAdd.getAuthorLastName()), true, null, null);
         library.put(newKey, newBook);
         return newBook;
     }
@@ -55,7 +55,7 @@ public class InMemoryLibraryRepository implements LibraryRepository {
         Reader reader = readers.get(readerId);
         if (bookToBorrow == null || !bookToBorrow.getInStock() || reader == null) return null;
         else {
-            Book borrowedBook = new Book(bookToBorrow.getId(), bookToBorrow.getTitle(), bookToBorrow.getAuthor(), false, readerId);
+            Book borrowedBook = new Book(bookToBorrow.getId(), bookToBorrow.getTitle(), bookToBorrow.getAuthor(), false, readerId, null);
             library.remove(bookId);
             library.put(bookId, borrowedBook);
             List<Integer> currentBookList = reader.getBookIdList();
@@ -73,7 +73,7 @@ public class InMemoryLibraryRepository implements LibraryRepository {
         if (bookToReturn.getInStock()) return null;
         Integer readerId = bookToReturn.getReaderId();
         Reader reader = readers.get(readerId);
-        Book returnedBook = new Book(idToReturn, bookToReturn.getTitle(), bookToReturn.getAuthor(), true, null);
+        Book returnedBook = new Book(idToReturn, bookToReturn.getTitle(), bookToReturn.getAuthor(), true, null, null);
         library.remove(idToReturn);
         library.put(idToReturn, returnedBook);
         List<Integer> newBooksList = reader.getBookIdList().stream().filter(id -> !Objects.equals(id, idToReturn)).toList();
@@ -96,15 +96,15 @@ public class InMemoryLibraryRepository implements LibraryRepository {
 
     @PostConstruct
     void fillLibraryForExamples() {
-        library.put(123, new Book(123, "Hobbit", new Author("John Ronald Reuel", "Tolkien"), true, null));
-        library.put(125, new Book(125, "Lord of the rings", new Author("John Ronald Reuel", "Tolkien"), true, null));
-        library.put(130, new Book(130, "Potop", new Author("Henryk", "Sienkiewicz"), true, null));
-        library.put(135, new Book(135, "Ogniem i mieczem", new Author("Henryk", "Sienkiewicz"), false, 2));
-        library.put(140, new Book(140, "Krew elfów", new Author("Andrzej", "Sapkowski"), true, null));
-        library.put(145, new Book(145, "Czas pogardy", new Author("Andrzej", "Sapkowski"), true, null));
-        library.put(150, new Book(150, "Chrzest ognia", new Author("Andrzej", "Sapkowski"), true, null));
-        library.put(155, new Book(155, "Wieża Jaskółki", new Author("Andrzej", "Sapkowski"), true, null));
-        library.put(160, new Book(160, "Pani Jeziora", new Author("Andrzej", "Sapkowski"), true, null));
+        library.put(123, new Book(123, "Hobbit", new Author("John Ronald Reuel", "Tolkien"), true, null, null));
+        library.put(125, new Book(125, "Lord of the rings", new Author("John Ronald Reuel", "Tolkien"), true, null, null));
+        library.put(130, new Book(130, "Potop", new Author("Henryk", "Sienkiewicz"), true, null, null));
+        library.put(135, new Book(135, "Ogniem i mieczem", new Author("Henryk", "Sienkiewicz"), false, 2, null));
+        library.put(140, new Book(140, "Krew elfów", new Author("Andrzej", "Sapkowski"), true, null, null));
+        library.put(145, new Book(145, "Czas pogardy", new Author("Andrzej", "Sapkowski"), true, null, null));
+        library.put(150, new Book(150, "Chrzest ognia", new Author("Andrzej", "Sapkowski"), true, null, null));
+        library.put(155, new Book(155, "Wieża Jaskółki", new Author("Andrzej", "Sapkowski"), true, null, null));
+        library.put(160, new Book(160, "Pani Jeziora", new Author("Andrzej", "Sapkowski"), true, null, null));
 
         List<Integer> booksList = new ArrayList<>();
         booksList.add(135);
