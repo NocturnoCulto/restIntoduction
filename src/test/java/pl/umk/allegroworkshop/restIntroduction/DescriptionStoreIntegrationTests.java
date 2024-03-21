@@ -27,54 +27,17 @@ public class DescriptionStoreIntegrationTests extends BaseTest {
 
     @Test
     void shouldCachedDescription() throws Exception {
-        //given:
-        String uri = "/book/123";
-
-        //when:
-        for (int i = 0; i < 10; i++) {
-            getResponseForUri(uri, BooksResponse.class);
-        }
-        BooksResponse booksResponse = getResponseForUri(uri, BooksResponse.class);
-
-        //then:
-        assertEquals(booksResponse.getBooks().get(0).getId(), 123);
-        assertEquals(booksResponse.getBooks().get(0).getDescription().shortDescription(), "Short text description");
-        assertEquals(booksResponse.getBooks().get(0).getDescription().longDescription(), "Long text description");
-
-        wireMockServer.verify(1, getRequestedFor(urlPathEqualTo("/descriptionById/123")));
+        assertEquals(true, false);
     }
 
     @Test
     void shouldCatchDescriptionStoreExceptionsAndRetryRequest() throws Exception {
-        //given:
-        wireMockServer.resetAll();
-        stubDescriptionStoreFailedRequest();
-        String uri = "/book/123";
-
-        //when:
-        BooksResponse booksResponse = getResponseForUri(uri, BooksResponse.class);
-
-        //then:
-        assertEquals(null, booksResponse.getBooks().get(0).getDescription());
-        wireMockServer.verify(2, getRequestedFor(urlPathEqualTo("/descriptionById/123")));
+        assertEquals(true, false);
     }
 
     @Test
     void shouldRetryDescriptionStoreAndReturnResponse() throws Exception {
-        // given:
-        stubFirstRequestFailedScenario();
-        String uri = "/book/123";
-
-        // when:
-        BooksResponse booksResponse = getResponseForUri(uri, BooksResponse.class);
-
-        // then:
-
-        assertEquals(booksResponse.getBooks().get(0).getId(), 123);
-        assertEquals(booksResponse.getBooks().get(0).getDescription().shortDescription(), "Short text description");
-        assertEquals(booksResponse.getBooks().get(0).getDescription().longDescription(), "Long text description");
-
-        wireMockServer.verify(2, getRequestedFor(urlPathEqualTo("/descriptionById/123")));
+        assertEquals(true, false);
     }
 
 }
