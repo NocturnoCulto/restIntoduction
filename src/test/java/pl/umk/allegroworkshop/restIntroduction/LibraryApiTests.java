@@ -10,11 +10,9 @@ import pl.umk.allegroworkshop.restIntroduction.api.v1.model.response.*;
 import pl.umk.allegroworkshop.restIntroduction.api.v1.model.request.BookToAddDTO;
 import pl.umk.allegroworkshop.restIntroduction.api.v1.model.request.BookToRemoveDTO;
 
-import java.util.Arrays;
-
 import static org.junit.jupiter.api.Assertions.*;
 
-class RestIntroductionApplicationTests extends BaseTest {
+class LibraryApiTests extends BaseTest {
 
 	@Test
 	void getAllBooksEndpoint() throws Exception {
