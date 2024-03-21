@@ -25,7 +25,6 @@ import pl.umk.allegroworkshop.restIntroduction.outgoing.descriptionStore.model.E
 import java.io.IOException;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
-import static com.github.tomakehurst.wiremock.stubbing.Scenario.STARTED;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ActiveProfiles("integration")
@@ -77,22 +76,10 @@ public abstract class BaseTest {
     }
 
     protected void stubDescriptionStoreFailedRequest() {
-        stubFor(get(urlPathMatching("/descriptionById/[0-9]+"))
-                .willReturn(aResponse().withBodyFile("serverError.json")
-                        .withHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE).withStatus(503)));
+
     }
 
     protected void stubFirstRequestFailedScenario() {
-        stubFor(get(urlPathMatching("/descriptionById/[0-9]+")).inScenario("retryScenario")
-                .whenScenarioStateIs(STARTED)
-                .willReturn(aResponse().withBodyFile("serverError.json")
-                        .withHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE).withStatus(503))
-                .willSetStateTo("afterFirstErrorResponse"));
-
-        stubFor(get(urlPathMatching("/descriptionById/[0-9]+")).inScenario("retryScenario")
-                .whenScenarioStateIs("afterFirstErrorResponse")
-                .willReturn(aResponse().withBodyFile("descriptionStoreResponse.json")
-                        .withHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE).withStatus(200)));
 
     }
 
