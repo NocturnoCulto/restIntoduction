@@ -7,13 +7,10 @@ import pl.umk.allegroworkshop.restIntroduction.outgoing.descriptionStore.model.E
 
 @Service
 public class DescriptionStoreService {
-    private final DescriptionStoreClient descriptionStoreClient;
     private final LoadingCache<String, ExternalDescription> descriptionStoreCache;
 
 
-    public DescriptionStoreService(DescriptionStoreClient descriptionStoreClient,
-                                   LoadingCache<String, ExternalDescription> descriptionStoreCache) {
-        this.descriptionStoreClient = descriptionStoreClient;
+    public DescriptionStoreService(LoadingCache<String, ExternalDescription> descriptionStoreCache) {
         this.descriptionStoreCache = descriptionStoreCache;
     }
 
