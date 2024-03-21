@@ -67,6 +67,7 @@ public abstract class BaseTest {
         // You need to reset all wireMock mappings
         wireMockServer.resetMappings();
         wireMockServer.resetAll();
+        wireMockServer.resetScenarios();
     }
 
     @AfterAll
