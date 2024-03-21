@@ -61,20 +61,7 @@ public class DescriptionStoreIntegrationTests extends BaseTest {
 
     @Test
     void shouldRetryDescriptionStoreAndReturnResponse() throws Exception {
-        // given:
-        stubFirstRequestFailedScenario();
-        String uri = "/book/123";
-
-        // when:
-        BooksResponse booksResponse = getResponseForUri(uri, BooksResponse.class);
-
-        // then:
-
-        assertEquals(booksResponse.getBooks().get(0).getId(), 123);
-        assertEquals(booksResponse.getBooks().get(0).getDescription().shortDescription(), "Short text description");
-        assertEquals(booksResponse.getBooks().get(0).getDescription().longDescription(), "Long text description");
-
-        wireMockServer.verify(2, getRequestedFor(urlPathEqualTo("/descriptionById/123")));
+        assertEquals(true, false);
     }
 
 }
