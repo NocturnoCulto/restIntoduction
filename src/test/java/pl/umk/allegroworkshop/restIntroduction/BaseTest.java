@@ -40,12 +40,11 @@ public abstract class BaseTest {
     @Autowired
     private LoadingCache<String, ExternalDescription> descriptionStoreCache;
 
-    WireMockServer wireMockServer = new WireMockServer(8123); // You need to initialize wireMock server on specific port
+    WireMockServer wireMockServer = null; // You need to initialize wireMock server on specific port
 
     @BeforeAll
     void startWireMock() {
         // start wireMock server
-        wireMockServer.start();
     }
 
     @BeforeEach
@@ -55,24 +54,18 @@ public abstract class BaseTest {
         descriptionStoreCache.invalidateAll();
 
         // implement wireMock stubs
-        configureFor("localhost", 8123);
 
-        stubFor(get(urlPathMatching("/descriptionById/[0-9]+"))
-                .willReturn(aResponse().withBodyFile("descriptionStoreResponse.json")
-                        .withHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE).withStatus(200)));
     }
 
     @AfterEach
     protected void clearAfterEach() {
         // You need to reset all wireMock mappings
-        wireMockServer.resetMappings();
-        wireMockServer.resetAll();
+
     }
 
     @AfterAll
     void stopWireMock() {
         // stop wireMock server
-        wireMockServer.stop();
     }
 
     protected void stubDescriptionStoreFailedRequest() {
