@@ -56,7 +56,7 @@ class RestIntroductionApplicationTests extends BaseTest {
 
 	@Test
 	void getAllReadersEndpoint() throws Exception {
-		String uri = "/getReaders";
+		String uri = "/readers";
 		MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
 				.accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
 
@@ -69,7 +69,7 @@ class RestIntroductionApplicationTests extends BaseTest {
 
 	@Test
 	void getOneReaderEndpoint() throws Exception {
-		String uri = "/getReader?id=3";
+		String uri = "/reader?id=3";
 		MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
 				.accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
 
@@ -81,7 +81,7 @@ class RestIntroductionApplicationTests extends BaseTest {
 	}
 	@Test
 	void getEmptyReaderList() throws Exception {
-		String uri = "/getReader?id=8238";
+		String uri = "/reader?id=8238";
 		MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
 				.accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
 
@@ -127,7 +127,7 @@ class RestIntroductionApplicationTests extends BaseTest {
 		RemovedBookDTO removedBook = super.mapFromJson(content, RemovedBookDTO.class);
 		assertEquals(150, removedBook.getRemovedBookId());
 
-		String uriForTest = "/getBook/150";
+		String uriForTest = "/book/150";
 		MvcResult mvcResultForTest = mvc.perform(MockMvcRequestBuilders.get(uriForTest)
 				.accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
 
@@ -175,7 +175,7 @@ class RestIntroductionApplicationTests extends BaseTest {
 		assertEquals(true, returnedBook.getBooks().get(0).getInStock());
 		assertNull(returnedBook.getBooks().get(0).getReaderId());
 
-		String uriForReader = "/getReader?id=2";
+		String uriForReader = "/reader?id=2";
 		MvcResult mvcResultForTest = mvc.perform(MockMvcRequestBuilders.get(uriForReader)
 				.accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
 
